@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct LocalMovieItem: Decodable {
+struct LocalMovieItem: Equatable {
     let id: Int
     let description: String
     let name: String
-    let poster_path: String
+    let image: String
 }
