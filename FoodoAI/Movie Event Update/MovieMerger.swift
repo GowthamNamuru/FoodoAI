@@ -9,16 +9,22 @@ import Foundation
 
 struct MovieMerger {
     static func apply(_ event: MovieEvent, to current: [Movie]) -> [Movie] {
-        var dict = Dictionary(uniqueKeysWithValues: current.map { ($0.id, $0) })
-
+        var movies = current
         switch event.type {
-        case .created, .updated:
-            dict[event.item.id] = event.item
-
+        case .updated:
+            if let index = movies.firstIndex(where: { $0.id == event.item.id }) {
+                movies[index] = event.item
+            } else {
+                // If updated item doesn't exist, you may choose to insert it
+                movies.append(event.item)
+            }
+        case .created:
+            if !movies.contains(where: { $0.id == event.item.id }) {
+                movies.append(event.item)
+            }
         case .removed:
-            dict.removeValue(forKey: event.item.id)
+            movies.removeAll { $0.id == event.item.id }
         }
-
-        return dict.values.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+        return movies
     }
 }
