@@ -46,7 +46,7 @@ extension LocalMovieLoader: MovieLoader {
     }
 }
 
-private extension Array where Element == Movie {
+extension Array where Element == Movie {
     func toLocal() -> [LocalMovieItem] {
         return map { LocalMovieItem(id: $0.id, description: $0.description, name: $0.name, image: $0.url) }
     }

@@ -27,7 +27,8 @@ private enum ViewModelComposer {
         let remoteMovieLoader = RemoteMovieLoader(url: URL.moviesURL, client: client)
         let localMovieLoader = LocalMovieLoader(store: FileMovieStore(storeURL: MovieStoreURL.url), currentDate: Date.init)
         let offlineFallbackLoader = OfflineFallbackMovieLoader(remoteLoader: remoteMovieLoader, localLoader: localMovieLoader, network: NetworkMonitor())
-        return MovieViewModel(movieAPILoader: offlineFallbackLoader)
+        let localMovieStore = FileMovieStore(storeURL: MovieStoreURL.url)
+        return MovieViewModel(movieAPILoader: offlineFallbackLoader, movieStore: localMovieStore)
     }
 }
 

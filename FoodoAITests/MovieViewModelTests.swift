@@ -82,7 +82,7 @@ final class MovieViewModelTests: XCTestCase {
 
 private extension MovieViewModelTests {
     func makeSUT(remoteStore: MoviesLoading) -> MovieViewModel {
-        .init(movieAPILoader: remoteStore)
+        .init(movieAPILoader: remoteStore, movieStore: MovieStoreSpy())
     }
 
     func uniqueMovies(with source: MoviesSource = .remote) -> MoviesPayload {

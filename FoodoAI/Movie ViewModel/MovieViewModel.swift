@@ -18,9 +18,12 @@ final class MovieViewModel: ObservableObject {
     @Published private(set) var viewState: ViewState = .loading
     @Published private(set) var movies: [Movie] = []
     @Published private(set) var isOfflineData: Bool = false
+    @Published private(set) var failedToStore: Bool = false
+    private var localMovieStore: MovieStore
 
-    init(movieAPILoader: MoviesLoading) {
+    init(movieAPILoader: MoviesLoading, movieStore: MovieStore) {
         self.movieAPILoader = movieAPILoader
+        self.localMovieStore = movieStore
     }
 
     func load() {
@@ -33,8 +36,26 @@ final class MovieViewModel: ObservableObject {
                     self.viewState = .success(isEmpty: moviesPayload.movies.isEmpty)
                     self.movies = moviesPayload.movies
                     self.isOfflineData = moviesPayload.source == .local
+                    if !self.isOfflineData {
+                        self.storeMovies()
+                    }
                 case .failure:
                     self.viewState = .failed
+                }
+            }
+        }
+    }
+
+    private func storeMovies() {
+        self.localMovieStore.insert(movies.toLocal(), timestamp: Date()) { [weak self] result in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .failure:
+                    self.failedToStore = true
+                case .success():
+                    // TODO: We need to figure out to show to user that data has been stored successfully
+                    break
                 }
             }
         }

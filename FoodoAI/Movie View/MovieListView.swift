@@ -49,6 +49,13 @@ struct MovieListView: View {
                     viewModel.load()
                 }
             } else {
+                if viewModel.isOfflineData {
+                    Text("Offline data")
+                        .font(.footnote)
+                        .padding(8)
+                        .frame(maxWidth: .infinity)
+                        .background(.red.opacity(0.25))
+                }
                 List(viewModel.movies) { movie in
                     NavigationLink {
                         MovieDetailView(movie: movie)
