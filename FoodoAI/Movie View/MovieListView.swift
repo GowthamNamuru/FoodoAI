@@ -56,6 +56,9 @@ struct MovieListView: View {
                         MovieItemView(movie: movie)
                     }
                 }
+                .refreshable {
+                    viewModel.load()
+                }
             }
         }
     }
