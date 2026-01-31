@@ -44,3 +44,7 @@ private enum ConstructMovieURLRequest {
 
     private static let apiKey = ""
 }
+
+extension URL {
+    static let moviesURL = URL(string: "https://api.themoviedb.org/3/account/7701908/lists")!
+}
