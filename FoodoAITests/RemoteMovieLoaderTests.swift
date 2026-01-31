@@ -103,8 +103,8 @@ private extension RemoteMovieLoaderTests {
 
         let itemJSON = [
             "id": id,
-            "name": name,
-            "description": description,
+            "title": name,
+            "overview": description,
             "poster_path": imageURL
         ] as [String : Any]
         return (item, itemJSON)

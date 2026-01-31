@@ -36,7 +36,8 @@ private enum ConstructMovieURLRequest {
     static func makeURLRequest(for url: URL) -> URLRequest {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
         let queryItems: [URLQueryItem] = [
-          URLQueryItem(name: "page", value: "1"),
+            URLQueryItem(name: "language", value: "en-US"),
+            URLQueryItem(name: "page", value: "1")
         ]
         components.queryItems = components.queryItems.map { $0 + queryItems } ?? queryItems
 
@@ -49,9 +50,9 @@ private enum ConstructMovieURLRequest {
         return urlRequest
     }
 
-    private static let apiKey = ""
+    private static let apiKey = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZjY2YTRmOWFjZWNhOTNmYjA4YWU4ZWI0MWNiMDVjMiIsIm5iZiI6MTUxMTg5MjEyNi42MjUsInN1YiI6IjVhMWRhNDllOTI1MTQxMDMyYzA2YjY3NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.t1hTpIi0HDDhgTxuio72n-F9m_xW5f5zVFSiXRJu_us"
 }
 
 extension URL {
-    static let moviesURL = URL(string: "https://api.themoviedb.org/3/account/7701908/lists")!
+    static let moviesURL = URL(string: "https://api.themoviedb.org/3/movie/top_rated")!
 }

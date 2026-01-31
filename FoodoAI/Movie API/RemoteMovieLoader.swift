@@ -47,13 +47,13 @@ final class RemoteMovieLoader: MovieLoader {
 
 private extension Array where Element == RemoteMovieItem {
     func toModels() -> [Movie] {
-        return map { Movie(id: $0.id, description: $0.description, name: $0.name, url: $0.poster_path) }
+        return map { Movie(id: $0.id, description: $0.overview, name: $0.title, url: $0.poster_path) }
     }
 }
 
 internal struct RemoteMovieItem: Decodable {
     let id: Int
-    let description: String
-    let name: String
+    let overview: String
+    let title: String
     let poster_path: String
 }
