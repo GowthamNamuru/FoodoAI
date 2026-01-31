@@ -12,6 +12,16 @@ struct MovieItemView: View {
 
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
+            AsyncImage(url: movie.posterURL) { image in
+                image
+                    .resizable()
+                    .scaledToFill()
+            } placeholder: {
+                Color.gray.opacity(0.3)
+            }
+            .frame(width: 60, height: 90)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+
             VStack(alignment: .leading, spacing: 6) {
                 Text(movie.name)
                     .font(.headline)

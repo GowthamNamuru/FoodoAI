@@ -13,6 +13,10 @@ struct Movie: Equatable, Identifiable {
     public let name: String
     public let url: String
 
+    var posterURL: URL {
+        return URL(string: "https://image.tmdb.org/t/p/w500\(url)")!
+    }
+
     public init(id: Int, description: String, name: String, url: String) {
         self.id = id
         self.description = description

@@ -18,7 +18,10 @@ struct MovieListView: View {
         content
             .navigationTitle("Movies")
             .onAppear {
-                viewModel.load()
+                // This can be refactored
+                if viewModel.movies.isEmpty {
+                    viewModel.load()
+                }
             }
     }
 
