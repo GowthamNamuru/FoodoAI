@@ -23,6 +23,7 @@ protocol MoviesLoading {
 }
 
 final class OfflineFallbackMovieLoader: MoviesLoading {
+    private(set) var isLoading = false
     func load(_ completion: @escaping (MoviesLoading.Result) -> Void) {
     }
 }
