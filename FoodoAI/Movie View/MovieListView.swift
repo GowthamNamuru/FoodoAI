@@ -47,7 +47,11 @@ struct MovieListView: View {
                 }
             } else {
                 List(viewModel.movies) { movie in
-                    MovieItemView(movie: movie)
+                    NavigationLink {
+                        MovieDetailView(movie: movie)
+                    } label: {
+                        MovieItemView(movie: movie)
+                    }
                 }
             }
         }
