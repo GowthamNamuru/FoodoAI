@@ -23,6 +23,10 @@ final class MovieViewModel: ObservableObject {
 
     private let eventStream: MovieEventStreaming
 
+    @Published private(set) var showLiveUpdateHint: Bool = false
+    @Published private(set) var lastLiveUpdateText: String = ""
+    private var liveHintWorkItem: DispatchWorkItem?
+
     init(movieAPILoader: MoviesLoading, movieStore: MovieStore, eventStream: MovieEventStreaming) {
         self.movieAPILoader = movieAPILoader
         self.localMovieStore = movieStore
@@ -57,6 +61,7 @@ final class MovieViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.movies = MovieMerger.apply(event, to: self.movies)
                 self.viewState = .success(isEmpty: self.movies.isEmpty)
+                self.notifyLiveUpdate(event)
             }
         }
     }
@@ -78,6 +83,26 @@ final class MovieViewModel: ObservableObject {
                 }
             }
         }
+    }
+
+
+    private func notifyLiveUpdate(_ event: MovieEvent) {
+        let text: String
+        switch event.type {
+        case .created: text = "New movie added"
+        case .updated: text = "Movie updated"
+        case .removed: text = "Movie removed"
+        }
+
+        lastLiveUpdateText = text
+        showLiveUpdateHint = true
+
+        liveHintWorkItem?.cancel()
+        let work = DispatchWorkItem { [weak self] in
+            self?.showLiveUpdateHint = false
+        }
+        liveHintWorkItem = work
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: work)
     }
 
     deinit {

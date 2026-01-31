@@ -15,14 +15,22 @@ struct MovieListView: View {
     }
 
     var body: some View {
-        content
-            .navigationTitle("Movies")
-            .onAppear {
-                // This can be refactored
-                if viewModel.movies.isEmpty {
-                    viewModel.load()
-                }
+        VStack {
+            if viewModel.showLiveUpdateHint {
+                LiveUpdateBanner(text: viewModel.lastLiveUpdateText)
+                    .transition(.move(edge: .top).combined(with: .opacity))
             }
+
+            content
+                .navigationTitle("Movies")
+                .onAppear {
+                    // This can be refactored
+                    if viewModel.movies.isEmpty {
+                        viewModel.load()
+                    }
+                }
+        }
+        .animation(.easeInOut(duration: 0.25), value: viewModel.showLiveUpdateHint)
     }
 
     @ViewBuilder
@@ -68,5 +76,26 @@ struct MovieListView: View {
                 }
             }
         }
+    }
+}
+
+struct LiveUpdateBanner: View {
+    let text: String
+
+    var body: some View {
+        HStack(spacing: 10) {
+            Image(systemName: "bolt.fill")
+            Text(text)
+                .font(.footnote)
+                .lineLimit(1)
+            Spacer()
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
+        .background(.thinMaterial)
+        .overlay(
+            Divider(),
+            alignment: .bottom
+        )
     }
 }
