@@ -21,8 +21,9 @@ struct FoodoAIApp: App {
 private enum ViewModelComposer {
     static func composeViewModel() -> MovieViewModel {
         let client = URLSessionHTTPClient()
-        let movieAPILoader = RemoteMovieLoader(url: URL.moviesURL, client: client) // This will be used in next commit.
-        let offlineFallbackLoader = OfflineFallbackMovieLoader()
+        let remoteMovieLoader = RemoteMovieLoader(url: URL.moviesURL, client: client)
+        let localMovieLoader = LocalMovieLoader(store: FileMovieStore(storeURL: URL(string: "")!), currentDate: Date.init)
+        let offlineFallbackLoader = OfflineFallbackMovieLoader(remoteLoader: remoteMovieLoader, localLoader: localMovieLoader)
         return MovieViewModel(movieAPILoader: offlineFallbackLoader)
     }
 }

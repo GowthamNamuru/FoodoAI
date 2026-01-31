@@ -23,7 +23,15 @@ protocol MoviesLoading {
 }
 
 final class OfflineFallbackMovieLoader: MoviesLoading {
-    private(set) var isLoading = false
+    private var remoteLoader: MovieLoader
+    private var localLoader: MovieLoader
+
+    init(remoteLoader: MovieLoader, localLoader: MovieLoader) {
+        self.remoteLoader = remoteLoader
+        self.localLoader = localLoader
+    }
+
     func load(_ completion: @escaping (MoviesLoading.Result) -> Void) {
+
     }
 }
