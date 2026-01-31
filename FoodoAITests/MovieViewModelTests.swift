@@ -26,6 +26,32 @@ final class MovieViewModelTests: XCTestCase {
 
         XCTAssertFalse(remoteStoreMock.receivedLoad.isEmpty)
     }
+
+    func test_onLoadFailure_viewStateShouldBeFailed() {
+        let remoteStoreMock = MovieLoaderSpy()
+
+        let sut = makeSUT(remoteStore: remoteStoreMock)
+
+        sut.load()
+        XCTAssertEqual(sut.viewState, .loading)
+
+        remoteStoreMock.completeLoad(with: .failure(NSError(domain: "Some Error", code: 404)))
+
+        XCTAssertEqual(sut.viewState, .failed)
+    }
+
+    func test_onLoadFailure_viewStateShouldBeSuccess() {
+        let remoteStoreMock = MovieLoaderSpy()
+
+        let sut = makeSUT(remoteStore: remoteStoreMock)
+
+        sut.load()
+        XCTAssertEqual(sut.viewState, .loading)
+
+        remoteStoreMock.completeLoad(with: .success([]))
+
+        XCTAssertEqual(sut.viewState, .success)
+    }
 }
 
 private extension MovieViewModelTests {
@@ -38,6 +64,11 @@ private extension MovieViewModelTests {
 
         func load(_ completion: @escaping (MovieLoader.Result) -> Void) {
             receivedLoad.append(completion)
+        }
+
+        func completeLoad(with result: MovieLoader.Result, at index: Int = 0) {
+            receivedLoad[index](result)
+            receivedLoad.remove(at: index)
         }
     }
 }

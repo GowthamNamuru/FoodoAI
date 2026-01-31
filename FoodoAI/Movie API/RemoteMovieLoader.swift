@@ -11,7 +11,7 @@ final class RemoteMovieLoader: MovieLoader {
     let url: URL
     let client: HTTPClient
 
-    public enum Error: Swift.Error {
+    enum Error: Swift.Error {
         case connectivity
         case invalidData
     }
