@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		155E5A2A2F2E6450001016B1 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 155E5A292F2E6450001016B1 /* ReadMe.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		15B1E1932F2CFFD100FBA9CB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		155E5A292F2E6450001016B1 /* ReadMe.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 		15B1E1822F2CFFD000FBA9CB /* FoodoAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodoAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15B1E1922F2CFFD100FBA9CB /* FoodoAITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodoAITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15B1E19C2F2CFFD100FBA9CB /* FoodoAIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodoAIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +80,7 @@
 		15B1E1792F2CFFD000FBA9CB = {
 			isa = PBXGroup;
 			children = (
+				155E5A292F2E6450001016B1 /* ReadMe.md */,
 				15B1E1842F2CFFD000FBA9CB /* FoodoAI */,
 				15B1E1952F2CFFD100FBA9CB /* FoodoAITests */,
 				15B1E19F2F2CFFD100FBA9CB /* FoodoAIUITests */,
@@ -213,6 +219,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				155E5A2A2F2E6450001016B1 /* ReadMe.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
