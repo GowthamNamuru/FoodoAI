@@ -5,7 +5,7 @@
 //  Created by Gowtham Namuru on 31/01/26.
 //
 
-import Foundation
+import SwiftUI
 
 enum ViewState {
     case loading
@@ -13,10 +13,10 @@ enum ViewState {
     case failed
 }
 
-final class MovieViewModel {
+final class MovieViewModel: ObservableObject {
     private(set) var movieAPILoader: MovieLoader
-    private(set) var viewState: ViewState = .loading
-    private(set) var movies: [Movie] = []
+    @Published private(set) var viewState: ViewState = .loading
+    @Published private(set) var movies: [Movie] = []
 
     init(movieAPILoader: MovieLoader) {
         self.movieAPILoader = movieAPILoader
