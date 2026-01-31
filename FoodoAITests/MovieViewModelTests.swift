@@ -63,6 +63,18 @@ final class MovieViewModelTests: XCTestCase {
 
         XCTAssertEqual(sut.movies, uniqueMovies())
     }
+
+    func test_onLoadSuccess_shouldNotUpdateMoviesList_onDeallocation() {
+        let remoteStoreMock = MovieLoaderSpy()
+        var sut: MovieViewModel? = makeSUT(remoteStore: remoteStoreMock)
+
+        sut?.load()
+        sut = nil
+
+        remoteStoreMock.completeLoad(with: .success(uniqueMovies()))
+
+        XCTAssertTrue(remoteStoreMock.receivedLoad.isEmpty)
+    }
 }
 
 private extension MovieViewModelTests {

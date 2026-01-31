@@ -24,7 +24,8 @@ final class MovieViewModel {
 
     func load() {
         self.viewState = .loading
-        movieAPILoader.load { result in
+        movieAPILoader.load { [weak self] result in
+            guard let self else { return }
             switch result {
             case let .success(movies):
                 self.viewState = .success
