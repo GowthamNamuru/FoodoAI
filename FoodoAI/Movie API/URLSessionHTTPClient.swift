@@ -16,7 +16,7 @@ class URLSessionHTTPClient: HTTPClient {
     private struct UnexpectedValuesRepresentation: Error {}
 
     public func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
-        session.dataTask(with: url) { data, response, error in
+        session.dataTask(with: ConstructMovieURLRequest.makeURLRequest(for: url)) { data, response, error in
             completion(Result{
                 if let error = error {
                     throw error
@@ -28,4 +28,19 @@ class URLSessionHTTPClient: HTTPClient {
             })
         }.resume()
     }
+}
+
+// TODO: - This can be refactored further
+private enum ConstructMovieURLRequest {
+    static func makeURLRequest(for url: URL) -> URLRequest {
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
+        urlRequest.allHTTPHeaderFields = [
+          "accept": "application/json",
+          "Authorization": "Bearer \(Self.apiKey)"
+        ]
+        return urlRequest
+    }
+
+    private static let apiKey = ""
 }
