@@ -21,9 +21,12 @@ final class MovieViewModel: ObservableObject {
     @Published private(set) var failedToStore: Bool = false
     private var localMovieStore: MovieStore
 
-    init(movieAPILoader: MoviesLoading, movieStore: MovieStore) {
+    private let eventStream: MovieEventStreaming
+
+    init(movieAPILoader: MoviesLoading, movieStore: MovieStore, eventStream: MovieEventStreaming) {
         self.movieAPILoader = movieAPILoader
         self.localMovieStore = movieStore
+        self.eventStream = eventStream
     }
 
     func load() {
@@ -39,11 +42,27 @@ final class MovieViewModel: ObservableObject {
                     if !self.isOfflineData {
                         self.storeMovies()
                     }
+
+                    self.startLiveUpdates()
                 case .failure:
                     self.viewState = .failed
                 }
             }
         }
+    }
+
+    func startLiveUpdates() {
+        eventStream.start { [weak self] event in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                self.movies = MovieMerger.apply(event, to: self.movies)
+                self.viewState = .success(isEmpty: self.movies.isEmpty)
+            }
+        }
+    }
+
+    func stopLiveUpdates() {
+        eventStream.stop()
     }
 
     private func storeMovies() {
@@ -59,5 +78,9 @@ final class MovieViewModel: ObservableObject {
                 }
             }
         }
+    }
+
+    deinit {
+        stopLiveUpdates()
     }
 }

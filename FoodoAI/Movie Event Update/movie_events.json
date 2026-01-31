@@ -1,0 +1,114 @@
+[
+  {
+    "type": "updated",
+    "item": {
+      "id": 278,
+      "original_title": "The Shawshank Redemption",
+      "overview": "Imprisoned in the 1940s for the double murder of his wife and her lover, upstanding banker (UPDATED locally)",
+      "poster_path": "/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg",
+      "release_date": "1994-09-23",
+      "title": "The Shawshank Redemption"
+    }
+  },
+  {
+    "type": "updated",
+    "item": {
+      "id": 238,
+      "overview": "Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family. (UPDATED)",
+      "poster_path": "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+      "title": "The Godfather"
+    }
+  },
+  {
+    "type": "removed",
+    "item": {
+      "id": 389,
+      "overview": "What begins as an open and shut case soon becomes a mini-drama.",
+      "poster_path": "/ow3wq89wM8qd5X7hWKxiRfsFf9C.jpg",
+      "title": "12 Angry Men"
+    }
+  },
+  {
+    "type": "updated",
+    "item": {
+      "id": 19404,
+      "overview": "Raj is a rich, carefree, happy-go-lucky second generation NRI. (UPDATED locally)",
+      "poster_path": "/2CAL2433ZeIihfX1Hb2139CX0pW.jpg",
+      "title": "दिलवाले दुल्हनिया ले जायेंगे"
+    }
+  },
+  {
+    "type": "updated",
+    "item": {
+      "id": 496243,
+      "overview": "All unemployed, Ki-taek's family takes peculiar interest in the wealthy and glamorous Parks. (UPDATED)",
+      "poster_path": "/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+      "title": "Parasite 기생충"
+    }
+  },
+  {
+    "type": "removed",
+    "item": {
+      "id": 122,
+      "overview": "Frodo ventures deep into the dark heart of Mordor.",
+      "poster_path": "/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg",
+      "title": "The Lord of the Rings: The Return of the King"
+    }
+  },
+  {
+    "type": "updated",
+    "item": {
+      "id": 680,
+      "overview": "A burger-loving hit man and his philosophical partner. (UPDATED locally)",
+      "poster_path": "/96hiUXEuYsu4tcnvlaY8tEMFM0m.jpg",
+      "title": "Pulp Fiction"
+    }
+  },
+  {
+    "type": "updated",
+    "item": {
+      "id": 429,
+      "overview": "Three men comb the American Southwest in search of stolen gold. (UPDATED)",
+      "poster_path": "/Adrip2Jqzw56KeuV2nAxucKMNXA.jpg",
+      "title": "Il buono, il brutto, il cattivo"
+    }
+  },
+  {
+    "type": "removed",
+    "item": {
+      "id": 13,
+      "overview": "A man with a low IQ has accomplished great things.",
+      "poster_path": "/67HggiWaP9ZLv5sPYmyRV37yAJM.jpg",
+      "title": "Forrest Gump"
+    }
+  },
+  {
+    "type": "updated",
+    "item": {
+      "id": 346,
+      "overview": "A samurai answers a village's request for protection. (UPDATED locally)",
+      "poster_path": "/qvZ91FwMq6O47VViAr8vZNQz3WI.jpg",
+      "title": "Seven Samurai 七人の侍"
+    }
+  },
+  {
+    "type": "updated",
+    "item": {
+      "id": 637,
+      "overview": "A touching story of an Italian book seller of Jewish ancestry. (UPDATED)",
+      "poster_path": "/6aNKD81RHR1DqUUa8kOZ1TBY1Lp.jpg",
+      "title": "Life Is Beautiful La vita è bella"
+    }
+  },
+  {
+    "type": "created",
+    "item": {
+      "id": 999001,
+      "original_title": "Local Test Movie",
+      "overview": "This movie was created by the local event stream (no API).",
+      "poster_path": "/kGzFbGhp99zva6oZODW5atUtnqi.jpg",
+      "release_date": "2026-01-31",
+      "title": "Local Test Movie"
+    }
+  }
+]
