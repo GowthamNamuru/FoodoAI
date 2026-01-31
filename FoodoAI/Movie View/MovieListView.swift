@@ -40,9 +40,15 @@ struct MovieListView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-        case .success:
-            List(viewModel.movies) { movie in
-                MovieItemView(movie: movie)
+        case let .success(isEmpty):
+            if isEmpty {
+                EmptyMoviesView {
+                    viewModel.load()
+                }
+            } else {
+                List(viewModel.movies) { movie in
+                    MovieItemView(movie: movie)
+                }
             }
         }
     }

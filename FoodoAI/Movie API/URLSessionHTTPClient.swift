@@ -16,7 +16,8 @@ class URLSessionHTTPClient: HTTPClient {
     private struct UnexpectedValuesRepresentation: Error {}
 
     public func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
-        session.dataTask(with: ConstructMovieURLRequest.makeURLRequest(for: url)) { data, response, error in
+        let updatedRequest = ConstructMovieURLRequest.makeURLRequest(for: url)
+        session.dataTask(with: updatedRequest) { data, response, error in
             completion(Result{
                 if let error = error {
                     throw error
@@ -33,7 +34,13 @@ class URLSessionHTTPClient: HTTPClient {
 // TODO: - This can be refactored further
 private enum ConstructMovieURLRequest {
     static func makeURLRequest(for url: URL) -> URLRequest {
-        var urlRequest = URLRequest(url: url)
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+        let queryItems: [URLQueryItem] = [
+          URLQueryItem(name: "page", value: "1"),
+        ]
+        components.queryItems = components.queryItems.map { $0 + queryItems } ?? queryItems
+
+        var urlRequest = URLRequest(url: components.url!)
         urlRequest.httpMethod = "GET"
         urlRequest.allHTTPHeaderFields = [
           "accept": "application/json",

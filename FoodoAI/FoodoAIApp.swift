@@ -11,7 +11,17 @@ import SwiftUI
 struct FoodoAIApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                MovieListView(viewModel: ViewModelComposer.composeViewModel())
+            }
         }
+    }
+}
+
+private enum ViewModelComposer {
+    static func composeViewModel() -> MovieViewModel {
+        let client = URLSessionHTTPClient()
+        let movieAPILoader = RemoteMovieLoader(url: URL.moviesURL, client: client)
+        return MovieViewModel(movieAPILoader: movieAPILoader)
     }
 }

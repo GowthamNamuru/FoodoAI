@@ -36,6 +36,7 @@ final class MovieViewModelTests: XCTestCase {
         XCTAssertEqual(sut.viewState, .loading)
 
         remoteStoreMock.completeLoad(with: .failure(NSError(domain: "Some Error", code: 404)))
+        RunLoop.current.run(until: Date())
 
         XCTAssertEqual(sut.viewState, .failed)
     }
@@ -49,8 +50,9 @@ final class MovieViewModelTests: XCTestCase {
         XCTAssertEqual(sut.viewState, .loading)
 
         remoteStoreMock.completeLoad(with: .success([]))
+        RunLoop.current.run(until: Date())
 
-        XCTAssertEqual(sut.viewState, .success)
+        XCTAssertEqual(sut.viewState, .success(isEmpty: true))
     }
 
     func test_onLoadSuccess_shouldReceivesMoviesList() {
@@ -60,6 +62,7 @@ final class MovieViewModelTests: XCTestCase {
         sut.load()
 
         remoteStoreMock.completeLoad(with: .success(uniqueMovies()))
+        RunLoop.current.run(until: Date())
 
         XCTAssertEqual(sut.movies, uniqueMovies())
     }

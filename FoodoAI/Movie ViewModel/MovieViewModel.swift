@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-enum ViewState {
+enum ViewState: Equatable {
     case loading
-    case success
+    case success(isEmpty: Bool)
     case failed
 }
 
@@ -26,12 +26,14 @@ final class MovieViewModel: ObservableObject {
         self.viewState = .loading
         movieAPILoader.load { [weak self] result in
             guard let self else { return }
-            switch result {
-            case let .success(movies):
-                self.viewState = .success
-                self.movies = movies
-            case .failure:
-                self.viewState = .failed
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(movies):
+                    self.viewState = .success(isEmpty: movies.isEmpty)
+                    self.movies = movies
+                case .failure:
+                    self.viewState = .failed
+                }
             }
         }
     }
