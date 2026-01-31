@@ -8,9 +8,13 @@
 import Foundation
 
 final class MovieViewModel {
-    private(set) var movieAPILoader: MovieStore
+    private(set) var movieAPILoader: MovieLoader
 
-    init(movieAPILoader: MovieStore) {
+    init(movieAPILoader: MovieLoader) {
         self.movieAPILoader = movieAPILoader
+    }
+
+    func load() {
+        movieAPILoader.load { _ in }
     }
 }
