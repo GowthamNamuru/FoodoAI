@@ -40,7 +40,7 @@ final class MovieViewModelTests: XCTestCase {
         XCTAssertEqual(sut.viewState, .failed)
     }
 
-    func test_onLoadFailure_viewStateShouldBeSuccess() {
+    func test_onLoadSuccess_viewStateShouldBeSuccess() {
         let remoteStoreMock = MovieLoaderSpy()
 
         let sut = makeSUT(remoteStore: remoteStoreMock)
@@ -52,11 +52,26 @@ final class MovieViewModelTests: XCTestCase {
 
         XCTAssertEqual(sut.viewState, .success)
     }
+
+    func test_onLoadSuccess_shouldReceivesMoviesList() {
+        let remoteStoreMock = MovieLoaderSpy()
+        let sut = makeSUT(remoteStore: remoteStoreMock)
+
+        sut.load()
+
+        remoteStoreMock.completeLoad(with: .success(uniqueMovies()))
+
+        XCTAssertEqual(sut.movies, uniqueMovies())
+    }
 }
 
 private extension MovieViewModelTests {
     func makeSUT(remoteStore: MovieLoader) -> MovieViewModel {
         .init(movieAPILoader: remoteStore)
+    }
+
+    func uniqueMovies() -> [Movie] {
+        return [Movie(id: 12, description: "any", name: "any", url: "/some-param"), Movie(id: 14, description: "any", name: "any", url: "/some-param-two")]
     }
 
     final class MovieLoaderSpy: MovieLoader {

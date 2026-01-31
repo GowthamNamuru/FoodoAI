@@ -16,6 +16,7 @@ enum ViewState {
 final class MovieViewModel {
     private(set) var movieAPILoader: MovieLoader
     private(set) var viewState: ViewState = .loading
+    private(set) var movies: [Movie] = []
 
     init(movieAPILoader: MovieLoader) {
         self.movieAPILoader = movieAPILoader
@@ -25,8 +26,9 @@ final class MovieViewModel {
         self.viewState = .loading
         movieAPILoader.load { result in
             switch result {
-            case .success:
+            case let .success(movies):
                 self.viewState = .success
+                self.movies = movies
             case .failure:
                 self.viewState = .failed
             }
