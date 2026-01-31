@@ -49,7 +49,7 @@ final class MovieViewModelTests: XCTestCase {
         sut.load()
         XCTAssertEqual(sut.viewState, .loading)
 
-        remoteStoreMock.completeLoad(with: .success([]))
+        remoteStoreMock.completeLoad(with: .success(MoviesPayload(movies: [], source: .remote)))
         RunLoop.current.run(until: Date())
 
         XCTAssertEqual(sut.viewState, .success(isEmpty: true))
@@ -64,7 +64,7 @@ final class MovieViewModelTests: XCTestCase {
         remoteStoreMock.completeLoad(with: .success(uniqueMovies()))
         RunLoop.current.run(until: Date())
 
-        XCTAssertEqual(sut.movies, uniqueMovies())
+        XCTAssertEqual(sut.movies, uniqueMovies().movies)
     }
 
     func test_onLoadSuccess_shouldNotUpdateMoviesList_onDeallocation() {
@@ -81,22 +81,22 @@ final class MovieViewModelTests: XCTestCase {
 }
 
 private extension MovieViewModelTests {
-    func makeSUT(remoteStore: MovieLoader) -> MovieViewModel {
+    func makeSUT(remoteStore: MoviesLoading) -> MovieViewModel {
         .init(movieAPILoader: remoteStore)
     }
 
-    func uniqueMovies() -> [Movie] {
-        return [Movie(id: 12, description: "any", name: "any", url: "/some-param"), Movie(id: 14, description: "any", name: "any", url: "/some-param-two")]
+    func uniqueMovies(with source: MoviesSource = .remote) -> MoviesPayload {
+        return MoviesPayload(movies:[Movie(id: 12, description: "any", name: "any", url: "/some-param"), Movie(id: 14, description: "any", name: "any", url: "/some-param-two")], source: source)
     }
 
-    final class MovieLoaderSpy: MovieLoader {
-        private(set) var receivedLoad: [(MovieLoader.Result) -> Void] = []
+    final class MovieLoaderSpy: MoviesLoading {
+        private(set) var receivedLoad: [(MoviesLoading.Result) -> Void] = []
 
-        func load(_ completion: @escaping (MovieLoader.Result) -> Void) {
+        func load(_ completion: @escaping (MoviesLoading.Result) -> Void) {
             receivedLoad.append(completion)
         }
 
-        func completeLoad(with result: MovieLoader.Result, at index: Int = 0) {
+        func completeLoad(with result: MoviesLoading.Result, at index: Int = 0) {
             receivedLoad[index](result)
             receivedLoad.remove(at: index)
         }

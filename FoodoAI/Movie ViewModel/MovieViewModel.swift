@@ -14,11 +14,12 @@ enum ViewState: Equatable {
 }
 
 final class MovieViewModel: ObservableObject {
-    private(set) var movieAPILoader: MovieLoader
+    private(set) var movieAPILoader: MoviesLoading
     @Published private(set) var viewState: ViewState = .loading
     @Published private(set) var movies: [Movie] = []
+    @Published private(set) var isOfflineData: Bool = false
 
-    init(movieAPILoader: MovieLoader) {
+    init(movieAPILoader: MoviesLoading) {
         self.movieAPILoader = movieAPILoader
     }
 
@@ -28,9 +29,10 @@ final class MovieViewModel: ObservableObject {
             guard let self else { return }
             DispatchQueue.main.async {
                 switch result {
-                case let .success(movies):
-                    self.viewState = .success(isEmpty: movies.isEmpty)
-                    self.movies = movies
+                case let .success(moviesPayload):
+                    self.viewState = .success(isEmpty: moviesPayload.movies.isEmpty)
+                    self.movies = moviesPayload.movies
+                    self.isOfflineData = moviesPayload.source == .local
                 case .failure:
                     self.viewState = .failed
                 }
