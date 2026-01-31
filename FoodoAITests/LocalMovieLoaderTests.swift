@@ -87,7 +87,7 @@ final class LocalMovieLoaderTests: XCTestCase {
     }
 }
 
-private class MovieStoreSpy: MovieStore {
+class MovieStoreSpy: MovieStore {
     enum ReceivedMessage: Equatable {
         case insert([LocalMovieItem], Date)
         case retrieval
